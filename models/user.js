@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+
+// améliore les messages d'erreur lors de l'enregistrement de données uniques
 const uniqueValidator = require('mongoose-unique-validator');
 
 // La méthode Schema de Mongoose permet de créer un schéma de données
@@ -7,6 +9,7 @@ const userSchema = mongoose.Schema({
   password: { type: String, required: true }
 });
 
+// pour éviter doublon
 userSchema.plugin(uniqueValidator);
 
 // La méthode model transforme ce modèle en un modèle utilisable
