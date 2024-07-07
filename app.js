@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const booksRoutes = require('./routes/books');
 const dotenv = require('dotenv');
+const Book = require('./models/book');
 
 // Charger les variables d'environnement depuis le fichier .env
 dotenv.config();
@@ -22,5 +24,8 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(express.json());
+
+app.use('/api/books', booksRoutes);
 
 module.exports = app;

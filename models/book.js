@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// La méthode Schema de Mongoose permet de créer un schéma de données
 const bookSchema = mongoose.Schema({
   userId: { type: String, required: true },
   title: { type: String, required: true },
@@ -16,4 +17,5 @@ const bookSchema = mongoose.Schema({
   averageRating: { type: Number, required: true },
 });
 
+// La méthode model transforme ce modèle en un modèle utilisable
 module.exports = mongoose.model('Book', bookSchema);
