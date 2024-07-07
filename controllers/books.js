@@ -125,3 +125,44 @@ exports.deleteBook = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 };
 
+// Ajouter une notation à un livre
+exports.addRating = (req, res, next) => {
+    Book.findOne({ _id: req.params.id })
+        .then(book => {
+            if (!book) {
+                return res.status(404).json({ message: 'Livre non trouvé!' });
+            }
+
+            const userId = req.auth.userId;
+            const rating = req.body.rating;
+
+            // Vérifier si l'utilisateur a déjà noté ce livre
+            const existingRating = book.ratings.find(r => r.userId === userId);
+            if (existingRating) {
+                return res.status(400).json({ message: 'Livre déjà noté!' });
+            }
+
+            // Ajouter la nouvelle notation
+            book.ratings.push({ userId, rating });
+
+            // Calculer la nouvelle moyenne des notes
+            const totalRatings = book.ratings.reduce((acc, r) => acc + r.rating, 0);
+            book.averageRating = totalRatings / book.ratings.length;
+
+            // Sauvegarder le livre avec la nouvelle notation
+            book.save()
+                .then(() => res.status(200).json({ message: 'Note ajoutée avec succès!' }))
+                .catch(error => res.status(400).json({ error }));
+        })
+        .catch(error => res.status(500).json({ error }));
+};
+
+// Obtenir les 3 livres avec la meilleure note moyenne
+exports.getBestRatedBooks = (req, res, next) => {
+    Book.find().sort({ averageRating: -1 }).limit(3)
+        .then(books => {
+            res.status(200).json(books);
+        })
+        .catch(error => res.status(500).json({ error }));
+};
+
