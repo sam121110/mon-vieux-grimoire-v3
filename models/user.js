@@ -1,3 +1,4 @@
+// Importation de Mongoose pour faciliter l'interaction avec MongoDB
 const mongoose = require('mongoose');
 
 // améliore les messages d'erreur lors de l'enregistrement de données uniques
@@ -9,7 +10,7 @@ const userSchema = mongoose.Schema({
   password: { type: String, required: true }
 });
 
-// pour éviter doublon
+// Plugin pour gérer la validation d'unicité des champs
 userSchema.plugin(uniqueValidator);
 
 // La méthode model transforme ce modèle en un modèle utilisable

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// La méthode Schema de Mongoose permet de créer un schéma de données
+// Création d'un schéma de données
 const bookSchema = mongoose.Schema({
   userId: { type: String, required: true },
   title: { type: String, required: true },

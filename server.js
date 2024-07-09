@@ -1,6 +1,10 @@
+// import module HTTP pour créer le serveur
 const http = require('http');
+
+// import d'une instance de l'application Express
 const app = require('./app');
 
+// Pour garantir que le port spécifié est correctement formaté et utilisable par le serveur.
 const normalizePort = val => {
   const port = parseInt(val, 10);
 
@@ -12,9 +16,11 @@ const normalizePort = val => {
   }
   return false;
 };
+
 const port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
 
+// Gestion des erreurs du serveur
 const errorHandler = error => {
   if (error.syscall !== 'listen') {
     throw error;

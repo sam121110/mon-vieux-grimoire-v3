@@ -1,6 +1,10 @@
 const express = require('express');
+
+// Création d'un routeur
 const router = express.Router();
 const auth = require('../middleware/auth');
+
+// bibliothèque middleware pour faciliter la gestion des téléchargements de fichiers
 const multer = require('../middleware/multer-config');
 const booksCtrl = require('../controllers/books');
 
